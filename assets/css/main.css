@@ -88,6 +88,11 @@ a:after {
     padding: 0;
 }
 
+.pad {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .navbar-default {
 	background-color: #669900;
 	border-color: transparent;
