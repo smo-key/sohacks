@@ -1,5 +1,11 @@
 package com.codeon.gogreen;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
@@ -9,11 +15,14 @@ import com.google.android.gms.location.DetectedActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class MainActivity extends ActionBarActivity implements ConnectionCallbacks, OnConnectionFailedListener{
+public class MainActivity extends FragmentActivity implements ConnectionCallbacks, OnConnectionFailedListener{
 	private final BroadcastReceiver receiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -34,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 	};
 	private ActivityRecognitionClient mActivityRecognitionClient;
 	private PendingIntent mActivityRecognitionPendingIntent;
+	private String googlekey = "AIzaSyBV15lTOpTwK2Jkv_zxWwfRyU8DsasucAY";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
         Intent intent = new Intent(getApplicationContext(), ActivityRecognitionIntentService.class);
         mActivityRecognitionClient.connect();
         mActivityRecognitionPendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-       
+ 
     }
 
 
@@ -118,6 +128,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 
 
