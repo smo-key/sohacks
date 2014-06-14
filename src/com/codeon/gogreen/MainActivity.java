@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 	private String googlekey = "AIzaSyBV15lTOpTwK2Jkv_zxWwfRyU8DsasucAY";
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private String[] drawerNames = {"Main", "Parks", "Map", "Bicycle", "Steps", "Awards"};
+    private String[] drawerNames = {"Main", "Parks", "Map", "Bicycle", "Steps", "Camping"};
     private ActionBarDrawerToggle mDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +160,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 	    		.commit();
 	    }
    	    if (position == 5){
-	    	Fragment fragment = new AwardsFragment();
+	    	Fragment fragment = new CampingFragment();
 	    	fragmentManager.beginTransaction()
 	    		.replace(R.id.container, fragment)
 	    		.commit();
