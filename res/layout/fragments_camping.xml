@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     
  <com.fima.cardsui.views.CardUI
-        android:id="@+id/camping"
+        android:id="@+id/campcard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp" />
