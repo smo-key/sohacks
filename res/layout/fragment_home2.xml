@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="Points from parks"
+                android:text="Parks visited"
                 android:textColor="#99CC00"
                 android:textSize="15dp" />
         </LinearLayout>

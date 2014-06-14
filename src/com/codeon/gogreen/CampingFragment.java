@@ -7,6 +7,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.codeon.gogreen.HomeFragment.PlacesTask;
 import com.fima.cardsui.views.CardUI;
 import com.google.android.gms.common.ConnectionResult;
@@ -16,10 +28,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.mashape.unirest.http.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -86,7 +94,7 @@ public class CampingFragment extends Fragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		cardView = (CardUI) getActivity().findViewById(R.id.cardsview);
+		cardView = (CardUI) getActivity().findViewById(R.id.campcard);
 	}
 
 	public class PlacesTask extends AsyncTask<String, String, String> {
@@ -99,46 +107,36 @@ public class CampingFragment extends Fragment implements
 		@Override
 		protected String doInBackground(String[] paramArrayOfString) {
 			ArrayList<Park> parkslist = new ArrayList<Park>();
-			HttpResponse<String> request;
+			ClassLoader classLoader = CampingFragment.class.getClassLoader();
+			URL resource = classLoader.getResource("org/apache/http/message/BasicLineFormatter.class");
+			System.out.println(resource);
+			String request;
+			request = httpGet("https://trailapi-trailapi.p.mashape.com/"
+					+ "?q[activities_activity_type_name_eq]=hiking&lat=34.1"
+					+ "&lat=" + mCurrentLocation.getLatitude()
+					+ "&lon=" + mCurrentLocation.getLongitude()
+					+ "&radius=50"
+					+ "&limit=15");
+			Log.d("com.codeon.gogreen", request);
 			try {
-				request = Unirest
-						.get("https://trailapi-trailapi.p.mashape.com/"
-								+ "?q[activities_activity_type_name_eq]=hiking"
-								+ "&lat=34.1"
-								+ "&lon=-105.2"
-								+ "&radius=25"
-								+ "&q[state_cont]=California"
-								+ "&q[country_cont]=Australia&q[city_cont]=Denver"
-								+ "&q[activities_activity_name_cont]=Yellow%20River%20Trail"
-								+ "&limit=25")
-						.header("X-Mashape-Authorization",
-								"sP9Qf5DbYom8Zqvb49OSFVb2iAifJKuS").asString();
-				Log.d("com.codeon.gogreen", request.toString());
-				try {
-					JSONObject root = (JSONObject) new JSONObject(
-							request.toString());
-					JSONArray results = root.getJSONArray("places");
-					for (int i = 0; i < results.length(); i++) {
-						// Single loc
-						JSONObject j = results.getJSONObject(i);
-						double lat = j.getDouble("lat");
-						double lng = j.getDouble("lon");
-						double distance = distance(
-								mCurrentLocation.getLatitude(),
-								mCurrentLocation.getLongitude(), lat, lng);
+				JSONObject root = (JSONObject) new JSONObject(request.substring(request.indexOf("{"), request.lastIndexOf("}") + 1));;
+				JSONArray results = root.getJSONArray("places");
+				for (int i = 0; i < results.length(); i++) {
+					// Single loc
+					JSONObject j = results.getJSONObject(i);
+					double lat = j.getDouble("lat");
+					double lng = j.getDouble("lon");
+					double distance = distance(
+							mCurrentLocation.getLatitude(),
+							mCurrentLocation.getLongitude(), lat, lng);
 
-						parkslist.add(new Park(j.getString("city") + "," + j.getString("state"), j
-								.getString("name"), distance));
-
-					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					parkslist.add(new Park(j.getString("city") + ", " + j.getString("state"), j
+							.getString("name"), distance));
+					
 				}
-
-			} catch (UnirestException e1) {
+			} catch (JSONException e) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e.printStackTrace();
 			}
 
 			genCards(parkslist);
@@ -186,7 +184,36 @@ public class CampingFragment extends Fragment implements
 		// TODO Auto-generated method stub
 
 	}
+	   public String httpGet(String s) {
+		    String url = s;
+		    StringBuilder body = new StringBuilder();
+		    HttpClient httpclient = new DefaultHttpClient(); // create new httpClient
+		    HttpGet httpGet = new HttpGet(url); // create new httpGet object
+		    httpGet.setHeader("X-Mashape-Authorization","sP9Qf5DbYom8Zqvb49OSFVb2iAifJKuS");
 
+
+
+		    try {
+		        org.apache.http.HttpResponse response = httpclient.execute(httpGet); // execute httpGet
+		        StatusLine statusLine = response.getStatusLine();
+		        int statusCode = statusLine.getStatusCode();
+		        if (statusCode == HttpStatus.SC_OK) {
+		            // System.out.println(statusLine);
+		            body.append(statusLine + "\n");
+		            HttpEntity e = response.getEntity();
+		            String entity = EntityUtils.toString(e);
+		            body.append(entity);
+		        } else {
+		            body.append(statusLine + "\n");
+		            // System.out.println(statusLine);
+		        }
+		    } catch (ClientProtocolException e) {
+		        e.printStackTrace();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    } 
+		    return body.toString(); // return the String
+		}
 	@Override
 	public void onLocationChanged(Location newloc) {
 		// Report to the UI that the location was updated

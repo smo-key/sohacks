@@ -148,6 +148,7 @@ public class HomeFragment extends Fragment implements
 								+ "?location=" + loc + "&radius=3000"
 								+ "&sensor=false" + "&types=park" + "&key="
 								+ googlekey);
+
 				InputStream in = url.openStream();
 				InputStreamReader reader = new InputStreamReader(in);
 				String parsedjson = convertStreamToString(in);
