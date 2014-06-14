@@ -11,8 +11,12 @@ public class AwardsFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_bicycle, container,
+		View rootView = inflater.inflate(R.layout.fragment_awards, container,
 				false);	
+		
+		
+		
+		
 		return rootView;
 	}    
 }
