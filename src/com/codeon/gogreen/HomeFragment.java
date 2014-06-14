@@ -157,8 +157,9 @@ public class HomeFragment extends Fragment implements
 						.getDefaultSharedPreferences(getActivity());
 				Editor ed = s.edit();
 				ed.putString("json", parsedjson);
+				ed.commit();
 				try {
-					root = (JSONObject) new JSONObject(parsedjson);
+					root = (JSONObject) new JSONObject(parsedjson.substring(parsedjson.indexOf("{"), parsedjson.lastIndexOf("}") + 1));
 					JSONArray results = root.getJSONArray("results");
 					for (int i = 0; i < results.length(); i++) {
 						// Single loc

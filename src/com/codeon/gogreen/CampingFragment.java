@@ -119,7 +119,7 @@ public class CampingFragment extends Fragment implements
 					+ "&limit=15");
 			Log.d("com.codeon.gogreen", request);
 			try {
-				JSONObject root = (JSONObject) new JSONObject(request.substring(request.indexOf("{"), request.lastIndexOf("}") + 1));;
+				JSONObject root = (JSONObject) new JSONObject(request.substring(request.indexOf("{"), request.lastIndexOf("}") + 1));
 				JSONArray results = root.getJSONArray("places");
 				for (int i = 0; i < results.length(); i++) {
 					// Single loc
