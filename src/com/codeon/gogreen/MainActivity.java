@@ -158,7 +158,6 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 	    }
    	    
    	    // Insert the fragment by replacing any existing fragment
-   	   
 
    	    // Highlight the selected item, update the title, and close the drawer
    	    mDrawerList.setItemChecked(position, true);
