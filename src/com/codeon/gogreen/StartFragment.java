@@ -24,13 +24,16 @@ public class StartFragment extends Fragment {
 		SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		int bikingtotalint = s.getInt("bikingtotal", 0);
 		int parkstotalint = s.getInt("parks", 0);
-		int totalpoints = bikingtotalint + parkstotalint;
-//		TextView bikingtotal = (TextView) getView().findViewById(R.id.biketime);
-//		TextView parkstotal = (TextView) getView().findViewById(R.id.parkpoint);
-//		TextView total = (TextView) getView().findViewById(R.id.totalpoint);
-//		bikingtotal.setText("Your biking points are: " + bikingtotalint);
-//		parkstotal.setText("Your parks points are: " + parkstotalint);
-//		total.setText("Your total points are: " + totalpoints);
+		int walking = s.getInt("stepslife", 0);
+		int totalpoints = bikingtotalint + parkstotalint + (walking/100);
+		TextView bikingtotal = (TextView) getView().findViewById(R.id.biketime);
+		TextView parkstotal = (TextView) getView().findViewById(R.id.parkpoint);
+		TextView total = (TextView) getView().findViewById(R.id.totalpoint);
+		TextView steps = (TextView) getView().findViewById(R.id.stepstaken);
+		bikingtotal.setText("" + bikingtotalint);
+		parkstotal.setText(""+ parkstotalint);
+		total.setText(""+ totalpoints);
+		steps.setText("" + walking);		
 	}
 	
 }
