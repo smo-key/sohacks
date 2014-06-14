@@ -21,9 +21,12 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -132,7 +135,11 @@ LocationListener{
     		    InputStreamReader reader = new InputStreamReader(in);
     		    String parsedjson = convertStreamToString(in);
     		    JSONObject root;
-				try {
+    		    SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(getActivity());
+				Editor ed = s.edit();
+				ed.putString("json", parsedjson);
+				ed.commit();
+    		    try {
 					root = (JSONObject) new JSONObject(parsedjson);
 					JSONArray results = root.getJSONArray("results");
 	    		    for (int i = 0; i < results.length(); i++){
