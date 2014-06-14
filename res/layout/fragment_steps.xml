@@ -6,11 +6,11 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="0000"
+        android:text="0"
         android:textSize="60dp"/>
     <TextView
         android:id="@+id/timedesc"
@@ -20,17 +20,17 @@
         android:text="Steps in current run"
         android:textSize="20dp" />
     <Button
-	    android:id="@+id/button1"
+	    android:id="@+id/resetbutton"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="Reset Run Counter"
 	    android:layout_marginTop="10dp" />
 	<TextView
-        android:id="@+id/timebiked"
+        android:id="@+id/timewalked"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Total steps recorded: 0000"
+        android:text="Total steps recorded: 0"
         android:textSize="15dp"
         android:layout_marginTop="20dp" />
 
