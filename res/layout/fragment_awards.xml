@@ -2,7 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0000"
+        android:textSize="60dp" />
+
+    <TextView
+        android:id="@+id/timedesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Lifetime Points Earned"
+        android:textSize="20dp" />
+
+	<TextView
+	    android:id="@+id/timebiked"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="20dp"
+	    android:gravity="center"
+	    android:text="Points from Biking: 0 Points"
+	    android:textSize="15dp" />
+
+	<TextView
+	    android:id="@+id/TextView01"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:text="Points from Walking: 0 Points"
+	    android:textSize="15dp" />
+
+	<TextView
+	    android:id="@+id/TextView02"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"
+	    android:text="Points from Park Check-Ins 0 Points"
+	    android:textSize="15dp" />
 
 </LinearLayout>
