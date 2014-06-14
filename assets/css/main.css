@@ -92,6 +92,13 @@ hr {
     padding: 0;
 }
 
+.phone {
+    max-height: 500px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .pad {
     padding-top: 10px;
     padding-bottom: 10px;
