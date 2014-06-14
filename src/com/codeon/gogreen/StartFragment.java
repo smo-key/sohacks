@@ -28,8 +28,8 @@ public class StartFragment extends Fragment {
 		TextView bikingtotal = (TextView) getView().findViewById(R.id.biketime);
 		TextView parkstotal = (TextView) getView().findViewById(R.id.parkpoint);
 		TextView total = (TextView) getView().findViewById(R.id.totalpoint);
-		bikingtotal.setText("Your biking points are: " + bikingtotal);
-		parkstotal.setText("Your parks points are: " + parkstotal);
+		bikingtotal.setText("Your biking points are: " + bikingtotalint);
+		parkstotal.setText("Your parks points are: " + parkstotalint);
 		total.setText("Your total points are: " + totalpoints);
 	}
 	
