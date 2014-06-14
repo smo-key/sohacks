@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 	private String googlekey = "AIzaSyBV15lTOpTwK2Jkv_zxWwfRyU8DsasucAY";
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private String[] drawerNames = {"Main", "Parks", "Bicycle"};
+    private String[] drawerNames = {"Home", "Parks", "Bicycle"};
     private ActionBarDrawerToggle mDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +126,12 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
    	    // Create a new fragment and specify the planet to show based on position
    		Log.d("com.codeon.gogreen", position + "");
    	    FragmentManager fragmentManager = getSupportFragmentManager();
+   	    if (position == 0){
+	    	Fragment fragment = new StartFragment();
+	    	fragmentManager.beginTransaction()
+	    		.replace(R.id.container, fragment)
+	    		.commit();
+	    }
    	    if (position == 1){
    	    	Fragment fragment = new HomeFragment();
    	    	fragmentManager.beginTransaction()
