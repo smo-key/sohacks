@@ -40,14 +40,6 @@ import android.widget.ListView;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity implements ConnectionCallbacks, OnConnectionFailedListener{
-	private final BroadcastReceiver receiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			int action = intent.getIntExtra("activity", 0);
-			changeText(action);
-		}
-
-	};
 	private ActivityRecognitionClient mActivityRecognitionClient;
 	private PendingIntent mActivityRecognitionPendingIntent;
 	private String googlekey = "AIzaSyBV15lTOpTwK2Jkv_zxWwfRyU8DsasucAY";
@@ -59,10 +51,6 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        IntentFilter filter = new IntentFilter();
-		filter.addAction("com.codeon.gogreen.ActivityRecieved");
-		registerReceiver(receiver, filter);
-     
         //Activity Recog
         mActivityRecognitionClient =
                 new ActivityRecognitionClient(getApplicationContext(), (com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks) this, this);
@@ -131,40 +119,27 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
           }
         return super.onOptionsItemSelected(item);
     }
-    private void changeText (int action){
-    	String actiontranslated = computeInterval(action);
-    	Log.d("com.codeon.gogreen", actiontranslated);
-    }
-   	private String computeInterval(int action) {
-		switch(action){
-			case DetectedActivity.IN_VEHICLE:
-				return "Car";
-			case DetectedActivity.ON_BICYCLE:
-				return "Bicycle";
-			case DetectedActivity.STILL:
-				return "Still";
-			case DetectedActivity.UNKNOWN:
-				return "Unkown";
 
-		}
-		return "";
-	}
 
    	/** Swaps fragments in the main content view */
    	private void selectItem(int position) {
    	    // Create a new fragment and specify the planet to show based on position
-   		Fragment fragment;
-   	    switch (position){
-   	    	case 0:
-   	    		fragment = new HomeFragment();
-   	    	default:
-   	    		fragment = new HomeFragment();
+   		Log.d("com.codeon.gogreen", position + "");
+   	    FragmentManager fragmentManager = getSupportFragmentManager();
+   	    if (position == 0){
+   	    	Fragment fragment = new HomeFragment();
+   	    	fragmentManager.beginTransaction()
+   	    		.replace(R.id.container, fragment)
+   	    		.commit();
+   	    }
+   	    if (position == 1){
+   	    	Fragment fragment = new BicycleFragment();
+   	    	fragmentManager.beginTransaction()
+   	    		.replace(R.id.container, fragment)
+   	    		.commit();
    	    }
    	    // Insert the fragment by replacing any existing fragment
-   	    FragmentManager fragmentManager = getSupportFragmentManager();
-   	    fragmentManager.beginTransaction()
-   	                   .replace(R.id.container, fragment)
-   	                   .commit();
+   	   
 
    	    // Highlight the selected item, update the title, and close the drawer
    	    mDrawerList.setItemChecked(position, true);
@@ -182,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
 	public void onConnected(Bundle arg0) {
         if (mActivityRecognitionClient != null && mActivityRecognitionClient.isConnected()) {
             mActivityRecognitionClient.requestActivityUpdates(
-                    2000,
+                    60000,
                     mActivityRecognitionPendingIntent);
             mActivityRecognitionClient.disconnect();
         }		

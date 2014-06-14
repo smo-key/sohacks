@@ -5,6 +5,13 @@ import android.location.Location;
 public class Park {
 	private String address;
 	private String name;
+	private double dist;
+	public double getDist() {
+		return dist;
+	}
+	public void setDist(double dist) {
+		this.dist = dist;
+	}
 	public String getName() {
 		return name;
 	}
@@ -24,8 +31,9 @@ public class Park {
 		this.loc = loc;
 	}
 	private Location loc;
-	public Park(String a, String n){
+	public Park(String a, String n, double distance){
 		name = n;
 		address = a;
+		dist = distance;
 	}
 }

@@ -9,11 +9,12 @@ import android.widget.TextView;
 import com.fima.cardsui.objects.RecyclableCard;
 
 public class MyPlayCard extends RecyclableCard {
-
+	private double d;
 	public MyPlayCard(String titlePlay, String description, String color,
-			String titleColor, Boolean hasOverflow, Boolean isClickable) {
+			String titleColor, Boolean hasOverflow, Boolean isClickable,double distance) {
 		super(titlePlay, description, color, titleColor, hasOverflow,
 				isClickable);
+		d = distance;
 	}
 
 	@Override
@@ -41,5 +42,7 @@ public class MyPlayCard extends RecyclableCard {
 		else
 			((ImageView) convertView.findViewById(R.id.overflow))
 					.setVisibility(View.GONE);
+		((TextView) convertView.findViewById(R.id.distance))
+		.setText(Math.round(d) + "mi");
 	}
 }

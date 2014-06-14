@@ -3,21 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center" >
+    android:gravity="center">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="6:30:57"
-        android:textSize="60dp" />
+        android:text="Start Biking!"
+        android:textSize="60dp"/>
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/timedesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Total Time Spent on Bike"
+        android:text="This page will display your trip time"
         android:textSize="20dp" />
-
+	<TextView
+        android:id="@+id/timebiked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Total Time Biked: 0 Minutes"
+        android:textSize="15dp" />
 </LinearLayout>

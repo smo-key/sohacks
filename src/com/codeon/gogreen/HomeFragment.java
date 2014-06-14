@@ -105,7 +105,7 @@ LocationListener{
             public void run() {
             	cardView.clearCards();
             	for (Park p : parkslist){
-                	cardView.addCard(new  MyPlayCard(p.getName(),p.getAddress(),"#669900","#bebebe",false,false));
+                	cardView.addCard(new  MyPlayCard(p.getName(),p.getAddress(),"#669900","#bebebe",false,false,p.getDist()));
             	}
             }
         });
@@ -124,7 +124,7 @@ LocationListener{
         		String loc = mCurrentLocation.getLatitude() + "," + mCurrentLocation.getLongitude();
     			URL url = new URL("https://maps.googleapis.com/maps/api/place/search/json"
     					+ "?location=" + loc
-    					+ "&radius=5000"
+    					+ "&radius=3000"
     					+ "&sensor=false"
     					+ "&types=park"
     					+ "&key=" + googlekey);
@@ -138,7 +138,14 @@ LocationListener{
 	    		    for (int i = 0; i < results.length(); i++){
 	    		    	//Single loc
 	    		    	JSONObject j = results.getJSONObject(i); 
-	    		    	parkslist.add(new Park(j.getString("vicinity"), j.getString("name")));
+	    		    	JSONObject geometry = j.getJSONObject("geometry"); 
+	    		    	JSONObject location = geometry.getJSONObject("location");
+	    		    	double lat = location.getDouble("lat");
+	    		    	double lng = location.getDouble("lng");
+	    		    	double distance = distance(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude(),lat,lng);
+	    		    	Log.d("com.codeon.gogreen", distance + "");
+	    		    	parkslist.add(new Park(j.getString("vicinity"), j.getString("name"),distance));
+
 	    		    }
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -203,4 +210,20 @@ LocationListener{
 		 mCurrentLocation = newloc;
 		 Log.d("com.codeon.gogreen", "Lat" + newloc.getLatitude() + "Long" + newloc.getLongitude());
 	 }
+
+		public static double distance(double lat1, double lon1, double lat2,
+				double lon2) {
+
+			final int R = 6371; // Radius of the earth
+			Double dLat = Math.toRadians(lat2 - lat1);
+			Double dLon = Math.toRadians(lon2 - lon1);
+			lat1 = Math.toRadians(lat1);
+			lat2 = Math.toRadians(lat2);
+			Double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2)
+					* Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+			Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			Double distance = R * c;
+			return distance;
+
+		}
 }

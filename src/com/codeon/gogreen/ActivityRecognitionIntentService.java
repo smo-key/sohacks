@@ -18,6 +18,9 @@ package com.codeon.gogreen;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.android.gms.location.ActivityRecognitionResult;
@@ -28,7 +31,7 @@ import com.google.android.gms.location.DetectedActivity;
  * background, even if the main Activity is not visible.
  */
 public class ActivityRecognitionIntentService extends IntentService {
-
+	private int timebiking;
 	public ActivityRecognitionIntentService() {
 		// Set the label for the service's background thread
 		super("ActivityRecognitionIntentService");
@@ -55,9 +58,21 @@ public class ActivityRecognitionIntentService extends IntentService {
 			 * Get an integer describing the type of activity
 			 */
 			int activityType = mostProbableActivity.getType();
+			SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			Editor e = s.edit();
+			if (DetectedActivity.ON_BICYCLE == activityType){
+				timebiking++;
+				e.putInt("bikingtotal", s.getInt("bikingtotal", 0)+ 1);
+				e.putInt("bikingtemp", s.getInt("bikingtemp",0)+1);
+			}
+			else {
+				e.putInt("bikingtemp", 0);
+			}
+			e.commit();
 			Intent i = new Intent();
 			i.setAction("com.codeon.gogreen.ActivityRecieved");
 			i.putExtra("activity", activityType);
+			i.putExtra("biking", timebiking);
 			sendBroadcast(i);
 			String activityName = getNameFromType(activityType);
 			Log.d("com.asdar.geofence", "We are: " + activityName);
