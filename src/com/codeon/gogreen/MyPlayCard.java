@@ -1,5 +1,7 @@
 package com.codeon.gogreen;
 
+import java.text.DecimalFormat;
+
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,7 +44,8 @@ public class MyPlayCard extends RecyclableCard {
 		else
 			((ImageView) convertView.findViewById(R.id.overflow))
 					.setVisibility(View.GONE);
+	      DecimalFormat df1 = new DecimalFormat("0.#");  
 		((TextView) convertView.findViewById(R.id.distance))
-		.setText(Math.round(d) + "mi");
+		.setText(df1.format(d) + " Mi");
 	}
 }
