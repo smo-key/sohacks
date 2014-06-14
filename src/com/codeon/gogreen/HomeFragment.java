@@ -5,7 +5,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.io.InputStream;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.fima.cardsui.objects.Card;
+import com.fima.cardsui.views.CardUI;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
@@ -29,6 +37,7 @@ LocationListener{
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
+    private CardUI cardView;
 	private String googlekey = "AIzaSyBV15lTOpTwK2Jkv_zxWwfRyU8DsasucAY";
 	private LocationClient mLocationClient;
     private Location mCurrentLocation;
@@ -67,6 +76,17 @@ LocationListener{
         mLocationClient.connect();
 		return rootView;
 	}
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
+         cardView = (CardUI) getActivity().findViewById(R.id.cardsview);
+	  }
+	  public void onResume(){
+		  super.onResume();
+		  if (mCurrentLocation != null){
+			   new PlacesTask().execute();
+		  }
+	  }
     @Override
     public void onStart() {
         super.onStart();
@@ -79,6 +99,17 @@ LocationListener{
         mLocationClient.disconnect();
         super.onStop();
     }
+    public void genCards(final ArrayList<Park> parkslist){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+            	cardView.clearCards();
+            	for (Park p : parkslist){
+                	cardView.addCard(new  MyPlayCard(p.getName(),p.getAddress(),"#669900","#bebebe",false,false));
+            	}
+            }
+        });
+    }
     public class PlacesTask extends AsyncTask<String, String, String> {
         ProgressDialog dialog;
 
@@ -88,6 +119,7 @@ LocationListener{
 
         @Override
         protected String doInBackground(String[] paramArrayOfString) {
+        	ArrayList<Park> parkslist = new ArrayList<Park>();
         	try {
         		String loc = mCurrentLocation.getLatitude() + "," + mCurrentLocation.getLongitude();
     			URL url = new URL("https://maps.googleapis.com/maps/api/place/search/json"
@@ -98,7 +130,22 @@ LocationListener{
     					+ "&key=" + googlekey);
     		    InputStream in = url.openStream();
     		    InputStreamReader reader = new InputStreamReader(in);
-    		    Log.d("com.codeon.gogreen", convertStreamToString(in));
+    		    String parsedjson = convertStreamToString(in);
+    		    JSONObject root;
+				try {
+					root = (JSONObject) new JSONObject(parsedjson);
+					JSONArray results = root.getJSONArray("results");
+	    		    for (int i = 0; i < results.length(); i++){
+	    		    	//Single loc
+	    		    	JSONObject j = results.getJSONObject(i); 
+	    		    	parkslist.add(new Park(j.getString("vicinity"), j.getString("name")));
+	    		    }
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		    
+    		    Log.d("com.codeon.gogreen", parsedjson);
     		} catch (MalformedURLException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
@@ -106,7 +153,7 @@ LocationListener{
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
-           
+        	genCards(parkslist);
             return "";
         }
 
@@ -121,7 +168,7 @@ LocationListener{
             super.onPreExecute();
             if (dialog == null){
                 this.dialog = new ProgressDialog(getActivity());
-                this.dialog.setMessage("Creating...");
+                this.dialog.setMessage("Updating...");
                  this.dialog.show();
             }
         }

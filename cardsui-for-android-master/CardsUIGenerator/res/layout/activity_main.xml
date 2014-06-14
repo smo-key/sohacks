@@ -1,0 +1,262 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dip"
+    android:animateLayoutChanges="true"
+    android:layout_marginRight="16dip" >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/clickableLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dip"
+                android:background="@drawable/selectable_background_cardbank"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.1dip"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#6b6b6b" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100" >
+
+                    <ImageView
+                        android:id="@+id/expandCollapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:contentDescription="@string/new_card"
+                        android:src="@drawable/ic_action_expand" />
+
+                    <TextView
+                        android:id="@+id/transitions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="14dp"
+                        android:layout_marginTop="24dp"
+                        android:ellipsize="none"
+                        android:fontFamily="sans-serif-light"
+                        android:maxLines="10"
+                        android:scrollHorizontally="false"
+                        android:text="@string/new_card"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#33B6EA" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/newCardSub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="16dp"
+                    android:ellipsize="none"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="10"
+                    android:scrollHorizontally="false"
+                    android:text="@string/new_card_subtitle"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.1dip"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#6b6b6b" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/newCardLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#e1e1e1"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <Spinner
+                        android:id="@+id/cardType"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dip"
+                        android:layout_marginRight="16dip"
+                        android:layout_marginTop="32dip"
+                        android:entries="@array/cards_type_array" />
+
+                    <EditText
+                        android:id="@+id/editTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dip"
+                        android:layout_marginRight="16dip"
+                        android:layout_marginTop="16dip"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="@string/card_title" />
+
+                    <EditText
+                        android:id="@+id/editDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dip"
+                        android:layout_marginRight="16dip"
+                        android:layout_marginTop="16dip"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="@string/card_desc" />
+                    
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/colorPickersLayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dip"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:animateLayoutChanges="true"
+                        android:weightSum="100" >
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:orientation="vertical" >
+
+                            <com.larswerkman.colorpicker.ColorPicker
+                                android:id="@+id/titlePicker"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal" />
+
+                            <TextView
+                                android:id="@+id/colorTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="@string/title_color"
+                                android:textSize="26sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/stripeLayout"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:orientation="vertical" >
+
+                            <com.larswerkman.colorpicker.ColorPicker
+                                android:id="@+id/stripePicker"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal" />
+
+                            <TextView
+                                android:id="@+id/colorStripe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:fontFamily="sans-serif-thin"
+                                android:text="@string/stripe_color"
+                                android:textSize="26sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.1dip"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#6b6b6b" />
+
+                    <LinearLayout
+                        android:id="@+id/checkboxesLayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dip"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <CheckBox
+                            android:id="@+id/checkOverflow"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="16dip"
+                            android:layout_weight="33.33"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/overflow" />
+
+                        <CheckBox
+                            android:id="@+id/checkClickable"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="33.33"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/clickable" />
+
+                        <CheckBox
+                            android:id="@+id/checkToStack"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="16dip"
+                            android:layout_weight="33.33"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/to_last_stack" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/createCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dip"
+                        android:layout_marginLeft="64dip"
+                        android:layout_marginRight="64dip"
+                        android:layout_marginTop="16dip"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@string/create_card"
+                        android:textSize="24sp" />
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/cardsUiLayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginTop="16dip"
+                        android:orientation="horizontal"
+                        android:animateLayoutChanges="true"
+                        android:weightSum="100" >
+
+                <com.fima.cardsui.views.CardUI
+                    android:id="@+id/cardsview"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+</ScrollView>
