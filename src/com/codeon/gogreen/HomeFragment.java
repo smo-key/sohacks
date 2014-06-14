@@ -158,15 +158,12 @@ public class HomeFragment extends Fragment implements
 				ed.putString("json", parsedjson);
 				try {
 					root = (JSONObject) new JSONObject(parsedjson);
-					JSONArray results = root.getJSONArray("results");
+					JSONArray results = root.getJSONArray("places");
 					for (int i = 0; i < results.length(); i++) {
 						// Single loc
 						JSONObject j = results.getJSONObject(i);
-						JSONObject geometry = j.getJSONObject("geometry");
-						JSONObject location = geometry
-								.getJSONObject("location");
-						double lat = location.getDouble("lat");
-						double lng = location.getDouble("lng");
+						double lat = j.getDouble("lat");
+						double lng = j.getDouble("lon");
 						double distance = distance(
 								mCurrentLocation.getLatitude(),
 								mCurrentLocation.getLongitude(), lat, lng);
