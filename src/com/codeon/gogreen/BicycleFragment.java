@@ -1,5 +1,7 @@
 package com.codeon.gogreen;
 
+import org.apache.http.HttpResponse;
+
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
@@ -37,6 +39,16 @@ public class BicycleFragment extends Fragment {
 		filter.addAction("com.codeon.gogreen.ActivityRecieved");
 		getActivity().registerReceiver(receiver, filter);
 		
+		HttpResponse<JsonNode> request = Unirest.post("https://plotly-plotly.p.mashape.com/")
+				  .header("X-Mashape-Authorization", "<mashape-key>")
+				  .field("un", "anna.lyst")
+				  .field("api_key", "<api_key>")
+				  .field("origin", "plot")
+				  .field("platform", "python")
+				  .field("version", "0.2")
+				  .field("args", "[\"[{\\\"x\\\": [0\",\"1\",\"2]\",\"\\\"y\\\": [3\",\"1\",\"6]\",\"\\\"name\\\": \\\"Experimental\\\"\",\"\\\"marker\\\": {\\\"symbol\\\": \\\"square\\\"\",\"\\\"color\\\": \\\"purple\\\"}}\",\"{\\\"x\\\": [1\",\"2\",\"3]\",\"\\\"y\\\": [3\",\"4\",\"5]\",\"\\\"name\\\": \\\"Control\\\"}]\"]")
+				  .field("kwargs", "[\"kwargs={     \\\"filename\\\": \\\"plot from api\\\"\",\"\\\"fileopt\\\": \\\"overwrite\\\"\",\"\\\"style\\\": {         \\\"type\\\": \\\"bar\\\"     }\",\"\\\"traces\\\": [0\",\"3\",\"5]\",\"\\\"layout\\\": {         \\\"title\\\": \\\"experimental data\\\"     }\",\"\\\"world_readable\\\": true }\"]")
+				  .asString();
 		
 		return rootView;
 	}    
