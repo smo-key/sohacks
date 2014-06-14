@@ -1,5 +1,4 @@
 project.properties
-lint.xml
 
 # Built application files
 *.apk
