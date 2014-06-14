@@ -89,7 +89,7 @@ a:after {
 }
 
 .navbar-default {
-	background-color: #3498db;
+	background-color: #669900;
 	border-color: transparent;
 }
 
@@ -123,7 +123,7 @@ i {
 /* HeaderWrap */
 #headerwrap {
 	/* background: url(../img/bg01.jpg) no-repeat center top; */
-	background-color: #7EBD00;
+	background-color: #669900;
 	margin-top: -20px;
 	padding-top:200px;
 	background-attachment: relative;
