@@ -126,13 +126,13 @@ public class MainActivity extends ActionBarActivity implements ConnectionCallbac
    	    // Create a new fragment and specify the planet to show based on position
    		Log.d("com.codeon.gogreen", position + "");
    	    FragmentManager fragmentManager = getSupportFragmentManager();
-   	    if (position == 0){
+   	    if (position == 1){
    	    	Fragment fragment = new HomeFragment();
    	    	fragmentManager.beginTransaction()
    	    		.replace(R.id.container, fragment)
    	    		.commit();
    	    }
-   	    if (position == 1){
+   	    if (position == 2){
    	    	Fragment fragment = new BicycleFragment();
    	    	fragmentManager.beginTransaction()
    	    		.replace(R.id.container, fragment)
