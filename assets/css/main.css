@@ -29,6 +29,10 @@ h1 {
 	font-size: 40px;
 }
 
+h2 {
+    font-size: 26px;
+}
+
 h3 {
 	color: #95a5a6;
 	font-weight: 400;
@@ -79,7 +83,7 @@ a:after {
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
 
- hr {
+hr {
     display: block;
     height: 1px;
     border: 0;
