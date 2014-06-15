@@ -6,19 +6,10 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.io.InputStream;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.fima.cardsui.objects.Card;
-import com.fima.cardsui.views.CardUI;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
@@ -36,6 +27,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.fima.cardsui.views.CardUI;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 public class HomeFragment extends Fragment implements
 		GooglePlayServicesClient.ConnectionCallbacks,
@@ -159,7 +157,9 @@ public class HomeFragment extends Fragment implements
 				ed.putString("json", parsedjson);
 				ed.commit();
 				try {
-					root = (JSONObject) new JSONObject(parsedjson.substring(parsedjson.indexOf("{"), parsedjson.lastIndexOf("}") + 1));
+					root = (JSONObject) new JSONObject(parsedjson.substring(
+							parsedjson.indexOf("{"),
+							parsedjson.lastIndexOf("}") + 1));
 					JSONArray results = root.getJSONArray("results");
 					for (int i = 0; i < results.length(); i++) {
 						// Single loc
@@ -172,14 +172,15 @@ public class HomeFragment extends Fragment implements
 						double distance = distance(
 								mCurrentLocation.getLatitude(),
 								mCurrentLocation.getLongitude(), lat, lng);
-						if (distance < .250){
-							Toast.makeText(getActivity(), "Checked in to a Park!", Toast.LENGTH_LONG).show();
+						if (distance < .250) {
+							Toast.makeText(getActivity(),
+									"Checked in to a Park!", Toast.LENGTH_LONG)
+									.show();
 							Editor blah = s.edit();
-							blah.putInt("parks", s.getInt("parks", 0)+10);
+							blah.putInt("parks", s.getInt("parks", 0) + 10);
 							blah.commit();
-						}
-						else {
-							
+						} else {
+
 						}
 						Log.d("com.codeon.gogreen", distance + "");
 						parkslist.add(new Park(j.getString("vicinity"), j
@@ -199,7 +200,7 @@ public class HomeFragment extends Fragment implements
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			genCards(parkslist);
 			return "";
 		}
@@ -220,7 +221,6 @@ public class HomeFragment extends Fragment implements
 			}
 		}
 	}
-
 
 	static String convertStreamToString(java.io.InputStream is) {
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");

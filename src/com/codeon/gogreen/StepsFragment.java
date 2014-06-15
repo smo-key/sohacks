@@ -43,9 +43,9 @@ public class StepsFragment extends Fragment implements SensorEventListener {
 		SharedPreferences s = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
 		TextView count = (TextView) rootView.findViewById(R.id.count);
-		TextView life = (TextView) rootView.findViewById(R.id.timewalked); 
+		TextView life = (TextView) rootView.findViewById(R.id.timewalked);
 		count.setText(s.getInt("stepsinit", 0) + "");
-		life.setText("Total steps recorded: "+ s.getInt("stepslife", 0));
+		life.setText("Total steps recorded: " + s.getInt("stepslife", 0));
 
 		return rootView;
 	}

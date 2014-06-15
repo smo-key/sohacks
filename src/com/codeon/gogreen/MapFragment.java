@@ -1,13 +1,14 @@
 package com.codeon.gogreen;
 
-import android.app.Activity;
-import android.content.Context;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MapFragment extends Fragment {
 
@@ -68,10 +63,10 @@ public class MapFragment extends Fragment {
 					String name = j.getString("name");
 					String address = j.getString("vicinity");
 					LatLng locallatlng = new LatLng(lat, lng);
-					map.addMarker(new MarkerOptions()
-							.position(locallatlng).title(name)
-							.snippet(address));
-				     map.moveCamera(CameraUpdateFactory.newLatLngZoom(locallatlng, 12));
+					map.addMarker(new MarkerOptions().position(locallatlng)
+							.title(name).snippet(address));
+					map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+							locallatlng, 12));
 
 				}
 			} catch (JSONException e) {

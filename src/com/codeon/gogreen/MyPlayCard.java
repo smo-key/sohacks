@@ -12,8 +12,10 @@ import com.fima.cardsui.objects.RecyclableCard;
 
 public class MyPlayCard extends RecyclableCard {
 	private double d;
+
 	public MyPlayCard(String titlePlay, String description, String color,
-			String titleColor, Boolean hasOverflow, Boolean isClickable,double distance) {
+			String titleColor, Boolean hasOverflow, Boolean isClickable,
+			double distance) {
 		super(titlePlay, description, color, titleColor, hasOverflow,
 				isClickable);
 		d = distance;
@@ -44,8 +46,8 @@ public class MyPlayCard extends RecyclableCard {
 		else
 			((ImageView) convertView.findViewById(R.id.overflow))
 					.setVisibility(View.GONE);
-	      DecimalFormat df1 = new DecimalFormat("0.#");  
-		((TextView) convertView.findViewById(R.id.distance))
-		.setText(df1.format(d) + " Mi");
+		DecimalFormat df1 = new DecimalFormat("0.#");
+		((TextView) convertView.findViewById(R.id.distance)).setText(df1
+				.format(d) + " Mi");
 	}
 }
