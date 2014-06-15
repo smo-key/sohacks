@@ -35,7 +35,7 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
-public class HomeFragment extends Fragment implements
+public class ParksFragment extends Fragment implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 	/**
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment implements
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
 
-	public HomeFragment() {
+	public ParksFragment() {
 	}
 
 	@Override

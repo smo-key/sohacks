@@ -123,7 +123,7 @@ public class MainActivity extends ActionBarActivity implements
 					.replace(R.id.container, fragment).commit();
 		}
 		if (position == 1) {
-			Fragment fragment = new HomeFragment();
+			Fragment fragment = new ParksFragment();
 			fragmentManager.beginTransaction()
 					.replace(R.id.container, fragment).commit();
 		}
